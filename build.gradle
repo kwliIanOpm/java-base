@@ -13,6 +13,9 @@ repositories {
 dependencies {
 // https://mvnrepository.com/artifact/org.springframework/spring-context
     implementation group: 'org.springframework', name: 'spring-context', version: '5.2.13.RELEASE'
+    // https://mvnrepository.com/artifact/org.ow2.asm/asm-commons
+    implementation group: 'org.ow2.asm', name: 'asm-commons', version: '8.0.1'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }

@@ -5,10 +5,12 @@ package test.lang;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.util.Assert;
 
+import javax.swing.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.security.ProtectionDomain;
 import java.util.*;
 
 /**
@@ -230,8 +232,92 @@ public class ClassTest {
         System.out.println(ClassTest.class.getDeclaringClass()); //null
     }
 
+    // There are five kinds of classes (or interfaces):
+    // a) Top level classes
+    // b) Nested classes (static member classes)
+    // c) Inner classes (non-static member classes)
+    // d) Local classes (named classes declared within a method)
+    // e) Anonymous classes
+    // JVM Spec 4.8.6: A class must have an EnclosingMethod
+    // attribute if and only if it is a local class or an
+    // anonymous class.
+    public static void getEnclosingClass(){
+        class Inner{}
+        System.out.println(Inner.class.getEnclosingClass()); //class test.lang.ClassTest
+    }
+
+    /**
+     * 获取简称
+     */
+    public static void getSimpleName(){
+        System.out.println(ClassTest.class.getSimpleName());   //ClassTest
+    }
+
+    /**
+     * ??与getClassName有何区别
+     */
+    public static void getTypeName(){
+        System.out.println(ClassTest.class.getTypeName());
+        System.out.println(ArrayList.class.getTypeName());
+    }
+
+    /**
+     *获取规范名称 (java语言规范)
+     */
+    public static void getCanonicalName(){
+        System.out.println(int.class.getCanonicalName());
+        System.out.println(ArrayList.class.getCanonicalName());
+        System.out.println(long[].class.getCanonicalName());
+    }
+
+    // a) Top level classes
+    // b) Nested classes (static member classes)
+    // c) Inner classes (non-static member classes)
+    // d) Local classes (named classes declared within a method)
+    // e) Anonymous classes
+    public static void isAnonymousClassAndIsLocalClass(){
+        class Inner{}
+        System.out.println(Inner.class.isAnonymousClass()); //false
+        System.out.println(Inner.class.isLocalClass()); //true
+        System.out.println(Inner.class.isMemberClass()); //false
+    }
+
+    /**
+     * 获取这个类声明的其他public class
+     */
+    public static void getClasses(){
+        System.out.println(Arrays.toString(ClassTest.class.getClasses())); //[]
+        System.out.println(Arrays.toString(ArrayList.class.getClasses())); //[]
+    }
+
+    public static void getDeclaredFieldsAndGetDeclaredMethods(){
+        System.out.println(Arrays.toString(ArrayList.class.getDeclaredFields()));
+        System.out.println(Arrays.toString(ArrayList.class.getDeclaredMethods()));
+    }
+
+    public static void resource(){
+        System.out.println(ClassTest.class.getResource("/hello.txt")); // file:/home/kwli/IdeaProjects/java-base/build/resources/main/hello.txt
+        System.out.println(ClassTest.class.getResource("hello.txt")); // file:/home/kwli/IdeaProjects/java-base/build/resources/main/test/lang/hello.txt
+        System.out.println(ClassTest.class.getResourceAsStream("/hello.txt")); // java.io.BufferedInputStream@2a139a55
+    }
+
+    /**
+     *保护域
+     */
+    public static void  getProtectionDomain(){
+        ProtectionDomain protectionDomain = ClassTest.class.getProtectionDomain();
+        System.out.println(protectionDomain);
+    }
+
 
     public static void main(String[] args) throws Exception {
-        getDeclaringClass();
+//        getProtectionDomain();
+        System.out.println(Enum.class.isAssignableFrom(season.class));
+        System.out.println(season.class.isEnum());
     }
+
+}
+enum season{
+    spring,
+    ccc;
 }
