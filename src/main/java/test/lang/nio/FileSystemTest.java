@@ -15,7 +15,7 @@ public class FileSystemTest {
         FileSystem fileSystem = FileSystems.getDefault();
         WatchService watchService = fileSystem.newWatchService();
         Path path = Paths.get("/home/kwli/IdeaProjects/java-base/src/main/java/test/lang");
-        WatchKey register = path.register(watchService, ENTRY_CREATE, OVERFLOW, ENTRY_DELETE, ENTRY_MODIFY);
+        path.register(watchService, ENTRY_CREATE, OVERFLOW, ENTRY_DELETE, ENTRY_MODIFY);
         while (true){
             WatchKey take = watchService.take();
             List<WatchEvent<?>> watchEvents = take.pollEvents();
