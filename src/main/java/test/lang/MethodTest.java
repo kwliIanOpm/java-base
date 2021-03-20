@@ -11,8 +11,13 @@ public class MethodTest {
         Method method = MethodTest.class.getDeclaredMethod("test", Map.class);
         System.out.println(Arrays.toString(method.getGenericParameterTypes()));
     }
-
     public List<String> test(Map<String, Date> map){
         return null;
+    }
+
+    public void test(){
+        for (;;) {
+           int  a=1;
+        }
     }
 }
